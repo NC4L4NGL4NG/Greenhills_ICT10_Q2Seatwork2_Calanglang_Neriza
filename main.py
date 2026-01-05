@@ -1,6 +1,8 @@
 from pyscript import document
 
 def compute_gwa(e):
+    result_box = document.getElementById("result")
+    
     try:
         g1 = float(document.getElementById('science').value)
         g2 = float(document.getElementById('english').value)
@@ -8,12 +10,14 @@ def compute_gwa(e):
         g4 = float(document.getElementById('math').value)
         g5 = float(document.getElementById('filipino').value)
 
-        gwa = (g1 + g2 + g3 + g4 + g5) / 5
+        gwa_total = (g1 + g2 + g3 + g4 + g5) / 5
 
-        result = document.getElementById("result")
-        result.textContent = f"Your GWA is: {gwa:.2f}"
+        if gwa_total > 74:
+            status = "PASSED"
+        else:
+            status = "FAILED"
 
-    except:
-        result = document.getElementById("result")
-        result.textContent = "Please enter valid numbers in all fields."
+        result_box.textContent = f"Your GWA is: {gwa_total:.2f} ({status})"
 
+    except ValueError:
+        result_box.textContent = "Please enter valid numbers in all fields."
